@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "jquery-mask-plugin": "^1.14.16"
+  },
+  "dependencies": {
+    "systemjs": "^6.14.1"
+  }
+}

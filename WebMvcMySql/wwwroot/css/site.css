@@ -1,0 +1,39 @@
+html {
+    font-size: 16px;
+}
+
+.btn-primary a {
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+    .btn-primary a:hover {
+        color: #fff;
+    }
+
+td {
+    vertical-align: middle;
+}
+
+input.check-box {
+    width: 18px;
+    height: 18px;
+    vertical-align: middle;
+}
+
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}

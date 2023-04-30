@@ -1,0 +1,96 @@
+﻿@model WebMvcMySql.Models.Buyer
+
+@{
+    ViewData["Title"] = "Cadastro";
+}
+
+<h2 class="mb-5">Cadastrar Cliente</h2>
+
+<div class="row my-3">
+    <div class="col-12">
+        <form asp-action="Create" class="row gy-2 gx-3 align-items-center">
+            <h5>Geral</h5>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group col-4">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" placeholder="Nome completo ou Razão Social do Cliente" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group col-4">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" placeholder="E-mail do Cliente" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group col-4">
+                <label asp-for="Phone" class="control-label"></label>
+                <input asp-for="Phone" class="form-control" placeholder="Telefone do Cliente" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group col-4">
+                <label asp-for="RegistrationDate" class="control-label"></label>
+                <input asp-for="RegistrationDate" class="form-control" placeholder="DD/MM/AAAA" />
+                <span asp-validation-for="RegistrationDate" class="text-danger"></span>
+            </div>
+            <h5 class="mt-5">Informações Pessoais</h5>
+            <hr />
+            <div class="form-group col-4">
+                <label asp-for="PersonTypeId" class="control-label"></label>
+                <input asp-for="PersonTypeId" class="form-control" placeholder="Selecione o tipo de Pessoa." />
+                <span asp-validation-for="PersonTypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group col-4">
+                <label asp-for="CPF_CNPJ" class="control-label"></label>
+                <input asp-for="CPF_CNPJ" class="form-control" placeholder="Insira o CPF ou o CNPJ do Cliente." />
+                <span asp-validation-for="CPF_CNPJ" class="text-danger"></span>
+            </div>
+            <div class="form-group col-4">
+                <label asp-for="Gender" class="control-label"></label>
+                <input asp-for="Gender" class="form-control" placeholder="Selecione o gênero do Cliente" />
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group col-4">
+                <label asp-for="BirthDate" class="control-label"></label>
+                <input asp-for="BirthDate" class="form-control" />
+                <span asp-validation-for="BirthDate" class="text-danger"></span>
+            </div>
+            <div class="col-4">
+                <div class="row d-flex align-items-end">
+                    <div class="form-group col-8">
+                        <label asp-for="StateDoc" class="control-label"></label>
+                        <input asp-for="StateDoc" class="form-control" placeholder="Inscrição Estadual do Cliente" />
+                        <span asp-validation-for="StateDoc" class="text-danger"></span>
+                    </div>
+                    <div class="form-group form-check col-4  mb-2">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="IsFree" /> @Html.DisplayNameFor(model => model.IsFree)
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-check col-2 ms-2 mb-2 align-self-end">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsBlocked" /> @Html.DisplayNameFor(model => model.IsBlocked)
+                </label>
+            </div>
+            <div class="row mt-4 mb-3">
+                <hr />
+                <div class="col-auto px-1">
+                    <a role="button" class="btn btn-secondary" asp-action="Index">Voltar</a>
+                </div>
+                <div class="form-group col-auto px-1">
+                    <input type="submit" value="Adicionar Cliente" class="btn btn-primary" />
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

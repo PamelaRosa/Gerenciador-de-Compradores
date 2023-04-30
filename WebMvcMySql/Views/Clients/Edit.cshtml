@@ -1,0 +1,172 @@
+﻿@model WebMvcMySql.Models.Client
+
+@{
+    ViewData["Title"] = "Edição";
+}
+
+<h2 class="mb-5">Edite o Cliente</h2>
+
+<section class="row my-3">
+    <div class="col-12">
+        <form asp-action="Edit" class="row gy-2 gx-3 align-items-start">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <h5>Geral</h5>
+            <hr />
+            <div class="form-group col-12 col-md-4">
+                <label asp-for="TypePerson" class="control-label"></label>
+                <select asp-for="TypePerson" class="form-select" asp-items="Html.GetEnumSelectList<TypePerson>()">
+                    <option value="">Selecione</option>
+                </select>
+                <span asp-validation-for="TypePerson" class="text-danger"></span>
+            </div>
+            <div class="form-group col-12 col-md-8">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" placeholder="Digite o Nome" title="Nome completo ou Razão Social do Cliente" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group col-4">
+                <label asp-for="CPF_CNPJ" class="control-label"></label>
+                <input asp-for="CPF_CNPJ" class="form-control" placeholder="Digite o CPF ou CNPJ" />
+                <span asp-validation-for="CPF_CNPJ" class="text-danger"></span>
+            </div>
+            <div class="form-group col-12 col-md-4">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" placeholder="Digite o E-mail" title="E-mail do Cliente" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group col-12 col-md-4">
+                <label asp-for="Phone" class="control-label"></label>
+                <input asp-for="Phone" class="form-control" id="phone-input" placeholder="(00) 00000-0000" title="Telefone do Cliente" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group col-12 col-md-4">
+                <label asp-for="RegistrationDate" class="control-label"></label>
+                <input asp-for="RegistrationDate" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" disabled />
+                <span asp-validation-for="RegistrationDate" class="text-danger"></span>
+            </div>
+            <h5 class="mt-5">Informações Pessoais</h5>
+            <hr />
+
+            <div class="form-group col-12 col-md-3" id="gender-group">
+                <label asp-for="Gender" class="control-label"></label>
+                <select asp-for="Gender" class="form-select" asp-items="Html.GetEnumSelectList<Gender>()">
+                    <option value="">Selecione</option>
+                </select>
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group col-12 col-md-3" id="birthdate-group">
+                <label asp-for="BirthDate" class="control-label"></label>
+                <input asp-for="BirthDate" class="form-control" />
+                <span asp-validation-for="BirthDate" class="text-danger"></span>
+            </div>
+            <div class="col-6">
+                <div class="row d-flex align-items-start gap-2">
+                    <div class="form-group form-check form-switch col-auto mb-2" id="StateDocIndividual-group">
+                        <label class="form-check-label d-flex flex-column-reverse align-items-start">
+                            <input class="form-check-input ms-1" role="switch" asp-for="IsStateDocIndividual" /> @Html.DisplayNameFor(model => model.IsStateDocIndividual)
+                        </label>
+                    </div>
+                    <div class="form-group col-5">
+                        <label asp-for="StateDoc" class="control-label"></label>
+                        <input asp-for="StateDoc" class="form-control" placeholder="Inscrição Estadual do Cliente" />
+                        <span asp-validation-for="StateDoc" class="text-danger"></span>
+                    </div>
+                    <div class="form-group form-check col-auto mb-2 align-self-end">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="IsFree" /> @Html.DisplayNameFor(model => model.IsFree)
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-check col-12 ms-2 mb-2 align-self-end">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsBlocked" /> @Html.DisplayNameFor(model => model.IsBlocked)
+                </label>
+            </div>
+            <div class="row mt-4 mb-3">
+                <hr />
+                <div class="col-auto px-1">
+                    <a role="button" class="btn btn-secondary px-4" asp-action="Index">Voltar</a>
+                </div>
+                <div class="form-group col-auto px-1">
+                    <input type="submit" value="Salvar" class="btn btn-primary px-4" />
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js" integrity="sha512-0XDfGxFliYJPFrideYOoxdgNIvrwGTLnmK20xZbCAvPfLGQMzHUsaqZK8ZoH+luXGRxTrS46+Aq400nCnAT0/w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $(document).ready(function () {
+            // obtém as referências aos elementos HTML
+            var isStateDocIndividual = $("#IsStateDocIndividual");
+            var typePerson = $("#TypePerson");
+            var stateDoc = $("#StateDoc");
+
+            // Esconde o input de gênero, data de nascimento por padrão e switch Inscrição Estadual
+            if (!typePerson.val() === "Individual") {
+                $('#gender-group').hide();
+                $('#birthdate-group').hide();
+                $('#StateDocIndividual-group').hide();
+            }
+
+            //MASCARAS DO FORMULÁRIO
+            //Phone
+            $('#phone-input').mask('(00) 00000-0000');
+            //CPF mascara - padrão
+            $('input#CPF_CNPJ').mask('000.000.000-00');
+
+            //Escuta mudança no select Tipo de Pessoa
+            $('#TypePerson').change(function () {
+                let selectedValue = $(this).val();
+
+                if (selectedValue === 'Individual') {
+                    $('#gender-group').show();
+                    $('#birthdate-group').show();
+                    $('#StateDocIndividual-group').show();
+                    //CPF mascara
+                    $('input#CPF_CNPJ').mask('000.000.000-00');
+                } else {
+                    $('#gender-group').hide();
+                    $('#birthdate-group').hide();
+                    $('#StateDocIndividual-group').hide();
+                    //CNPJ mascara
+                    $('input#CPF_CNPJ').mask('000.000.000/0000-00');
+                }
+
+            });
+
+            //Escuta mudança no checkbox Isento
+            $('#IsFree').change(function () {
+                if ($('#IsFree').is(':checked')) {
+                    // desativa o campo StateDoc
+                    stateDoc.val("");
+                    stateDoc.prop("disabled", true);
+                } else {
+                    // caso contrário, habilita o campo StateDoc
+                    stateDoc.prop("disabled", false);
+                }
+            });
+
+            //Escuta mudança no checkbox Isento
+            $('#IsStateDocIndividual').change(function () {
+                if (!$('#IsStateDocIndividual').is(':checked')) {
+                    // desativa o campo StateDoc
+                    stateDoc.val("");
+                    stateDoc.prop("disabled", true);
+                } else {
+                    // caso contrário, habilita o campo StateDoc
+                    stateDoc.prop("disabled", false);
+                }
+            });
+        });
+    </script>
+
+}
