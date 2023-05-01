@@ -19,13 +19,46 @@ namespace WebMvcMySql.Controllers
             _context = context;
         }
 
-        // GET: Clients
-        public async Task<IActionResult> Index()
+
+        // GET: Clients e/ou Filtros
+        public IActionResult Index(string? nameFilter, string? emailFilter, string? phoneFilter, bool? isBlockedFilter, DateTime? registrationDateFilter)
         {
-            return _context.Clients != null ?
-                        View(await _context.Clients.ToListAsync()) :
-                        Problem("Entity set 'ApplicationDbContext.Clients'  is null.");
+            var clients = _context.Clients.AsQueryable();
+
+            if (!string.IsNullOrEmpty(nameFilter))
+            {
+                clients = clients.Where(c => c.Name.Contains(nameFilter));
+            }
+
+            if (!string.IsNullOrEmpty(emailFilter))
+            {
+                clients = clients.Where(c => c.Email.Contains(emailFilter));
+            }
+
+            if (!string.IsNullOrEmpty(phoneFilter))
+            {
+                clients = clients.Where(c => c.Phone.Contains(phoneFilter));
+            }
+
+            if (isBlockedFilter.HasValue)
+            {
+                clients = clients.Where(c => c.IsBlocked == isBlockedFilter.Value);
+            }
+
+            if (registrationDateFilter.HasValue)
+            {
+                clients = clients.Where(c => c.RegistrationDate.Date == registrationDateFilter.Value.Date);
+            }
+
+            // adiciona os filtros como parâmetros de query string na URL
+            ViewData["NameFilter"] = nameFilter;
+            ViewData["EmailFilter"] = emailFilter;
+            ViewData["PhoneFilter"] = phoneFilter;
+            ViewData["registrationDateFilter"] = registrationDateFilter;
+
+            return View(clients.ToList());
         }
+
 
         // GET: Clients/Details/5
         public async Task<IActionResult> Details(int? id)

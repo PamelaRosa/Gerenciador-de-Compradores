@@ -34,6 +34,10 @@
 		<Compile Remove="Migrations\20230426235857_Add-Nullables.Designer.cs" />
 		<Compile Remove="Migrations\20230428014258_Change-Model-Columns.cs" />
 		<Compile Remove="Migrations\20230428014258_Change-Model-Columns.Designer.cs" />
+		<Compile Remove="Migrations\20230501170742_Correct-DbInitializer-names.cs" />
+		<Compile Remove="Migrations\20230501170742_Correct-DbInitializer-names.Designer.cs" />
+		<Compile Remove="Migrations\20230501171031_Correct-DbInitializer-names.cs" />
+		<Compile Remove="Migrations\20230501171031_Correct-DbInitializer-names.Designer.cs" />
 		<Compile Remove="Migrations\ApplicationDbContextModelSnapshot.cs" />
 		<Compile Remove="Models\Buyer.cs" />
 		<Compile Remove="Models\PersonType.cs" />

@@ -8,8 +8,9 @@
     <div class="d-flex justify-content-between align-items-center">
         <p>Consulte os seus Clientes cadastrados na sua Loja ou realize o cadastro de novos Clientes.</p>
         <button type="button" class="btn btn-primary d-flex py-3 px-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
             </svg>
             <a asp-action="Create" class="badge badge-primary py-0 px-1">Adicionar Cliente</a>
         </button>
@@ -23,7 +24,54 @@
         </button>
     </p>
     <div class="collapse" id="collapseFilter">
-        <div class="card card-body">
+        <div class="card card-body bg-light border-0">
+            <form method="get" class="d-flex gap-2 flex-wrap justify-content-between">
+                <div class="form-group col-3">
+                    <label for="nameFilter">Nome</label>
+                    <input type="text" name="nameFilter" id="nameFilter" class="form-control" value="@ViewData["NameFilter"]" placeholder="Nome ou Razão Social do Cliente">
+                </div>
+                <div class="form-group col-3">
+                    <label for="emailFilter">E-mail</label>
+                    <input type="text" name="emailFilter" id="emailFilter" class="form-control" value="@ViewData["EmailFilter"]" placeholder="E-mail do Cliente">
+                </div>
+                <div class="form-group col-2">
+                    <label for="phoneFilter">Telefone</label>
+                    <input type="number" name="phoneFilter" id="phoneFilter" class="form-control" value="@ViewData["PhoneFilter"]" placeholder="Telefone do Cliente">
+                </div>
+                <div class="form-group col-2">
+                    <label for="registrationDateFilter">Data de Cadastro</label>
+                    <input type="date" id="registrationDateFilter" name="registrationDateFilter" value="@ViewData["registrationDateFilter"]" class="form-control" />
+                </div>
+                <div class="form-group col-auto">
+                    <label class="col-12 col-form-label p-0">Bloqueado</label>
+                    <div class="col-12">
+                        <select class="form-select" name="isBlockedFilter" value="@ViewData["IsBlockedFilter"]">
+                            <option value="">Selecione</option>
+                            <option value="true">Sim</option>
+                            <option value="false">Não</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-12 ">
+                    <div class="row justify-content-between mt-3 mx-0 pt-3 border-top" role="group">
+                        <button type="submit" class="col-auto d-flex align-items-center btn btn-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle me-2" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                            </svg>
+                            Aplicar filtros
+                        </button>
+                        <button class="col-auto btn btn-warning text-white d-flex align-items-center" type="button" onclick="location.href='@Url.Action("Index","Clients")'">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle me-2" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                            </svg>
+                            Limpar filtros
+                        </button>
+                    </div>
+                </div>
+            </form>
+
         </div>
     </div>
     <table class="table table-hover my-4">
