@@ -21,7 +21,7 @@ namespace WebMvcMySql.Controllers
 
 
         // GET: Clients e/ou Filtros
-        public async Task<IActionResult> Index(string? nameFilter, string? emailFilter, string? phoneFilter, bool? isBlockedFilter, DateTime? registrationDateFilter, int page = 1, int pageSize = 20)
+        public async Task<IActionResult> Index(string? nameFilter, string? emailFilter, string? phoneFilter, bool? isBlockedFilter, DateTime? registrationDateFilter, DateTime? registrationDateFilterEnd, int page = 1, int pageSize = 20)
         {
             var clients = _context.Clients.AsQueryable();
 
@@ -47,28 +47,34 @@ namespace WebMvcMySql.Controllers
 
             if (registrationDateFilter.HasValue)
             {
-                clients = clients.Where(c => c.RegistrationDate.Date == registrationDateFilter.Value.Date);
+                clients = clients.Where(c => c.RegistrationDate.Date >= registrationDateFilter.Value.Date);
             }
-            // count total number of clients matching the filters
+
+            if (registrationDateFilterEnd.HasValue)
+            {
+                clients = clients.Where(c => c.RegistrationDate.Date <= registrationDateFilterEnd.Value.Date);
+            }
+
+            // contar o número total de clientes que correspondem aos filtros
             int totalClients = await clients.CountAsync();
 
-            // calculate total number of pages
+            // calcular número total de páginas
             int totalPages = (int)Math.Ceiling((double)totalClients / pageSize);
 
-            // make sure page number is within range
+            // verifique se o número da página está dentro do intervalo
             page = Math.Max(1, Math.Min(totalPages, page));
 
-            // calculate number of clients to skip
+            // calcular o número de clientes a pular
             int skip = (page - 1) * pageSize;
 
-            // apply paging and ordering
+            // Aplicar e ordenar
             List<Client> paginatedClients = await clients
                 .OrderBy(c => c.Name)
                 .Skip(skip)
                 .Take(pageSize)
                 .ToListAsync();
 
-            // pass data to view
+            // Passar dados para a view
             ViewData["NameFilter"] = nameFilter;
             ViewData["EmailFilter"] = emailFilter;
             ViewData["PhoneFilter"] = phoneFilter;

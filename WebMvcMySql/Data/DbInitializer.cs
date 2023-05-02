@@ -19,17 +19,24 @@ namespace WebMvcMySql.Data
                 return; // O banco de dados já foi propagado
             }
 
-            // Se não popule o banco de dados com 25 clientes aleatórios
+            // Popule o banco de dados com 25 clientes aleatórios
             var random = new Random();
             var names = new List<string> {
-    "Emma", "Noah", "Olivia", "Liam", "Ava", "William", "Sophia", "Mason", "Isabella", "James",
-    "Mia", "Benjamin", "Charlotte", "Jacob", "Abigail", "Michael", "Emily", "Elijah", "Harper",
-    "Ethan", "Amelia", "Alexander", "Evelyn", "Daniel", "Avery"
-};
+        "Emma", "Noah", "Olivia", "Liam", "Ava", "William", "Sophia", "Mason", "Isabella", "James",
+        "Mia", "Benjamin", "Charlotte", "Jacob", "Abigail", "Michael", "Emily", "Elijah", "Harper",
+        "Ethan", "Amelia", "Alexander", "Evelyn", "Daniel", "Avery","Pamela","Luana","Jolie","Maria","Rosa"
+    };
 
+            var usedNames = new HashSet<string>();
             var clients = Enumerable.Range(1, 25).Select(i =>
             {
-                var name = names[random.Next(names.Count)];
+                string name;
+                do
+                {
+                    name = names[random.Next(names.Count)];
+                } while (usedNames.Contains(name));
+                usedNames.Add(name);
+
                 return new Client
                 {
                     Name = $"{name}",
@@ -50,5 +57,6 @@ namespace WebMvcMySql.Data
             context.Clients.AddRange(clients);
             context.SaveChanges();
         }
+
     }
 }

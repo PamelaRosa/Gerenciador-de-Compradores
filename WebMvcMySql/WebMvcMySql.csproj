@@ -38,10 +38,24 @@
 		<Compile Remove="Migrations\20230501170742_Correct-DbInitializer-names.Designer.cs" />
 		<Compile Remove="Migrations\20230501171031_Correct-DbInitializer-names.cs" />
 		<Compile Remove="Migrations\20230501171031_Correct-DbInitializer-names.Designer.cs" />
+		<Compile Remove="Migrations\20230502060402_add-validation-exist-email.cs" />
+		<Compile Remove="Migrations\20230502060402_add-validation-exist-email.Designer.cs" />
+		<Compile Remove="Migrations\20230502063255_dont-repeat-names.cs" />
+		<Compile Remove="Migrations\20230502063255_dont-repeat-names.Designer.cs" />
+		<Compile Remove="Migrations\20230502072054_fix-update-client.cs" />
+		<Compile Remove="Migrations\20230502072054_fix-update-client.Designer.cs" />
+		<Compile Remove="Migrations\20230502072755_fix-update-client.cs" />
+		<Compile Remove="Migrations\20230502072755_fix-update-client.Designer.cs" />
+		<Compile Remove="Migrations\20230502082538_validation-state-doc.cs" />
+		<Compile Remove="Migrations\20230502082538_validation-state-doc.Designer.cs" />
 		<Compile Remove="Migrations\ApplicationDbContextModelSnapshot.cs" />
 		<Compile Remove="Models\Buyer.cs" />
 		<Compile Remove="Models\PersonType.cs" />
 		<Compile Remove="Models\RequiredIfIndividual.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Remove="Views\Home\Privacy.cshtml" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -63,6 +77,10 @@
 
 	<ItemGroup>
 		<Folder Include="Migrations\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="..\.editorconfig" Link=".editorconfig" />
 	</ItemGroup>
 
 </Project>

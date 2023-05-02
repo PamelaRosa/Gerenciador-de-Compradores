@@ -29,13 +29,14 @@ namespace WebMvcMySql.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "O nome é obrigatório.")]
-        [StringLength(maximumLength: 150, MinimumLength = 3, ErrorMessage = "O nome não pode ter mais que 150 caracteres.")]
+        [StringLength(maximumLength: 150, MinimumLength = 3, ErrorMessage = "O nome não pode ter menos que 3 caracteres e mais que 150 caracteres.")]
         [Display(Name = "Nome/Razão Social")]
         public string? Name { get; set; }
 
         [Required(ErrorMessage = "O e-mail é obrigatório.")]
         [EmailAddress(ErrorMessage = "O e-mail informado não é válido.")]
         [StringLength(maximumLength: 100, MinimumLength = 2)]
+        [UniqueAttribute(ErrorMessage = "Este endereço de e-mail já está sendo usado por outro cliente.")]
         public string? Email { get; set; }
 
         [Required(ErrorMessage = "O telefone é obrigatório.")]
@@ -50,6 +51,7 @@ namespace WebMvcMySql.Models
         public DateTime RegistrationDate { get; set; } = DateTime.Now;
 
         [Required(ErrorMessage = "O CPF/CNPJ é obrigatório.")]
+        [UniqueAttribute(ErrorMessage = "Este CPF/CNPJ já está sendo usado por outro cliente.")]
         [Display(Name = "CPF/CNPJ")]
         public string? CPF_CNPJ { get; set; }
 
@@ -59,6 +61,7 @@ namespace WebMvcMySql.Models
         [Display(Name = "Bloqueado")]
         public bool IsBlocked { get; set; }
 
+
         [Display(Name = "Inscrição Estadual - Pessoa Física")]
         public bool IsStateDocIndividual { get; set; }
 
@@ -66,6 +69,7 @@ namespace WebMvcMySql.Models
         [Display(Name = "Tipo de Pessoa")]
         public TypePerson TypePerson { get; set; }
 
+        [UniqueAttribute(ErrorMessage = "Esta Inscrição Estadual já está sendo usado por outro cliente.")]
         [Display(Name = "Inscrição Estadual")]
         public string? StateDoc { get; set; }
 
