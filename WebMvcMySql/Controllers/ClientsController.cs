@@ -21,7 +21,7 @@ namespace WebMvcMySql.Controllers
 
 
         // GET: Clients e/ou Filtros
-        public IActionResult Index(string? nameFilter, string? emailFilter, string? phoneFilter, bool? isBlockedFilter, DateTime? registrationDateFilter)
+        public async Task<IActionResult> Index(string? nameFilter, string? emailFilter, string? phoneFilter, bool? isBlockedFilter, DateTime? registrationDateFilter, int page = 1, int pageSize = 20)
         {
             var clients = _context.Clients.AsQueryable();
 
@@ -49,14 +49,35 @@ namespace WebMvcMySql.Controllers
             {
                 clients = clients.Where(c => c.RegistrationDate.Date == registrationDateFilter.Value.Date);
             }
+            // count total number of clients matching the filters
+            int totalClients = await clients.CountAsync();
 
-            // adiciona os filtros como parâmetros de query string na URL
+            // calculate total number of pages
+            int totalPages = (int)Math.Ceiling((double)totalClients / pageSize);
+
+            // make sure page number is within range
+            page = Math.Max(1, Math.Min(totalPages, page));
+
+            // calculate number of clients to skip
+            int skip = (page - 1) * pageSize;
+
+            // apply paging and ordering
+            List<Client> paginatedClients = await clients
+                .OrderBy(c => c.Name)
+                .Skip(skip)
+                .Take(pageSize)
+                .ToListAsync();
+
+            // pass data to view
             ViewData["NameFilter"] = nameFilter;
             ViewData["EmailFilter"] = emailFilter;
             ViewData["PhoneFilter"] = phoneFilter;
-            ViewData["registrationDateFilter"] = registrationDateFilter;
+            ViewData["RegistrationDateFilter"] = registrationDateFilter;
+            ViewData["IsBlockedFilter"] = isBlockedFilter;
+            ViewData["CurrentPage"] = page;
+            ViewData["TotalPages"] = totalPages;
 
-            return View(clients.ToList());
+            return View(paginatedClients);
         }
 
 

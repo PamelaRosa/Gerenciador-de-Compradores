@@ -10,16 +10,16 @@ namespace WebMvcMySql.Data
     {
         public static void Initialize(ApplicationDbContext context)
         {
-            // Ensure the database is created and up-to-date
+            // Certifique-se de que o banco de dados foi criado e atualizado
             context.Database.Migrate();
 
-            // Check if the Clients table is empty
+            // Verifique se a tabela Clientes está vazia
             if (context.Clients.Any())
             {
-                return; // Database has already been seeded
+                return; // O banco de dados já foi propagado
             }
 
-            // Seed the database with 25 random clients
+            // Se não popule o banco de dados com 25 clientes aleatórios
             var random = new Random();
             var names = new List<string> {
     "Emma", "Noah", "Olivia", "Liam", "Ava", "William", "Sophia", "Mason", "Isabella", "James",
@@ -45,8 +45,6 @@ namespace WebMvcMySql.Data
                     Gender = random.Next(3) == 0 ? Gender.Male : (random.Next(2) == 0 ? Gender.Female : Gender.Other)
                 };
             }).ToList();
-
-
 
 
             context.Clients.AddRange(clients);
