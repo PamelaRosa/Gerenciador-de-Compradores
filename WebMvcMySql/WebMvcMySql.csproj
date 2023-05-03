@@ -48,6 +48,10 @@
 		<Compile Remove="Migrations\20230502072755_fix-update-client.Designer.cs" />
 		<Compile Remove="Migrations\20230502082538_validation-state-doc.cs" />
 		<Compile Remove="Migrations\20230502082538_validation-state-doc.Designer.cs" />
+		<Compile Remove="Migrations\20230502174305_add-password-field.cs" />
+		<Compile Remove="Migrations\20230502174305_add-password-field.Designer.cs" />
+		<Compile Remove="Migrations\20230502174834_add-password-field.cs" />
+		<Compile Remove="Migrations\20230502174834_add-password-field.Designer.cs" />
 		<Compile Remove="Migrations\ApplicationDbContextModelSnapshot.cs" />
 		<Compile Remove="Models\Buyer.cs" />
 		<Compile Remove="Models\PersonType.cs" />
@@ -59,6 +63,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="BCrypt.Net" Version="0.1.0" />
 		<PackageReference Include="ExpressiveAnnotations" Version="2.9.6" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.2.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />

@@ -4,10 +4,10 @@ using WebMvcMySql.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Adicione serviços ao container.
 builder.Services.AddControllersWithViews();
 
-//Conection to database
+//Conecta no banco de dados
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
@@ -16,7 +16,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 var app = builder.Build();
 
-// Seed the database
+// Semear o banco de dados
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -31,7 +31,7 @@ using (var scope = app.Services.CreateScope())
         logger.LogError(ex, "An error occurred while seeding the database.");
     }
 }
-// Configure the HTTP request pipeline.
+// Configure o pipeline de solicitação HTTP.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");

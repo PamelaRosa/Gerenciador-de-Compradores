@@ -116,10 +116,17 @@ namespace WebMvcMySql.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Email,Phone,RegistrationDate,CPF_CNPJ,IsFree,IsBlocked,IsStateDocIndividual,TypePerson,StateDoc,BirthDate,Gender")] Client client)
+        public async Task<IActionResult> Create([Bind("Id,Name,Email,Phone,RegistrationDate,CPF_CNPJ,IsFree,IsBlocked,IsStateDocIndividual,TypePerson,StateDoc,BirthDate,Gender,Password,ConfirmPassword")] Client client)
         {
             if (ModelState.IsValid)
             {
+                // Checa se a senha coincide com a confirmação de senha
+                if (client.Password != client.ConfirmPassword)
+                {
+                    ModelState.AddModelError(string.Empty, "As senhas não conferem.");
+                    return View(client);
+                }
+
                 _context.Add(client);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -148,7 +155,7 @@ namespace WebMvcMySql.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Email,Phone,RegistrationDate,CPF_CNPJ,IsFree,IsBlocked,IsStateDocIndividual,TypePerson,StateDoc,BirthDate,Gender")] Client client)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Email,Phone,RegistrationDate,CPF_CNPJ,IsFree,IsBlocked,IsStateDocIndividual,TypePerson,StateDoc,BirthDate,Gender,Password,ConfirmPassword")] Client client)
         {
             if (id != client.Id)
             {
@@ -157,6 +164,13 @@ namespace WebMvcMySql.Controllers
 
             if (ModelState.IsValid)
             {
+                // Check if password and confirm password match
+                if (client.Password != client.ConfirmPassword)
+                {
+                    ModelState.AddModelError(string.Empty, "As senhas não conferem.");
+                    return View(client);
+                }
+
                 try
                 {
                     _context.Update(client);

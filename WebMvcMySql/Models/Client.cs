@@ -83,6 +83,20 @@ namespace WebMvcMySql.Models
         [Display(Name = "Gênero")]
         public Gender? Gender { get; set; }
 
+        [Required(ErrorMessage = "Senha é obrigatória.")]
+        [StringLength(15, MinimumLength = 8, ErrorMessage = "Senha deve ter entre 8 e 15 caracteres.")]
+        [DataType(DataType.Password)]
+        [Display(Name = "Senha")]
+        public string? Password { get; set; }
+
+        [Required(ErrorMessage = "Confirmação de Senha é obrigatória.")]
+        [StringLength(15, MinimumLength = 8, ErrorMessage = "Confirmação de Senha deve ter entre 8 e 15 caracteres.")]
+        [DataType(DataType.Password)]
+        [Compare(nameof(Password), ErrorMessage = "As senhas não conferem.")]
+        [Display(Name = "Confirmação da Senha")]
+        public string? ConfirmPassword { get; set; }
+
+
     }
 
 }
