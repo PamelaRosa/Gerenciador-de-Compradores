@@ -3,12 +3,12 @@
 @{
     ViewData["Title"] = "Lista";
 }
-<section>
+<section class="pb-5">
     <div class="container p-0 my-4" id="header-container">
         <h2>Lista de Compradores</h2>
-        <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex justify-content-between flex-lg-row flex-column align-items-md-center">
             <p>Consulte os seus Clientes cadastrados na sua Loja ou realize o cadastro de novos Clientes.</p>
-            <a asp-action="Create" class="btn btn-primary d-flex align-items-center py-2">
+            <a asp-action="Create" class="btn btn-warning d-flex align-items-center py-2 align-self-end">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle me-2" viewBox="0 0 16 16">
                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                     <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
@@ -17,7 +17,7 @@
             </a>
         </div>
     </div>
-    <div class="container p-0" id="filter-container">
+    <div class="container p-0 my-5" id="filter-container">
         <p>
             <button class="btn btn-dark px-4 d-flex align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter-circle me-2" viewBox="0 0 16 16">
@@ -28,7 +28,7 @@
             </button>
         </p>
         <div class="collapse" id="collapseFilter">
-            <div class="card card-body bg-white border-0 rounded-3">
+            <div class="card card-body bg-white shadow-sm border-0 rounded-5">
                 <form method="get" class="d-flex gap-2 flex-wrap justify-content-start">
                     <div class="form-group col-12 col-md-4">
                         <label for="nameFilter">Nome</label>
@@ -43,15 +43,15 @@
                         <input type="number" name="phoneFilter" id="phoneFilter" class="form-control" value="@ViewData["PhoneFilter"]" placeholder="Telefone do Cliente">
                     </div>
                     <div class="form-group col-12 col-md-2">
-                        <label for="registrationDateFilter">Registration Date From:</label>
+                        <label for="registrationDateFilter">Data de registro de:</label>
                         <input type="date" id="registrationDateFilter" name="registrationDateFilter" class="form-control">
                     </div>
                     <div class="form-group col-12 col-md-2">
-                        <label for="registrationDateFilterEnd">Registration Date To:</label>
+                        <label for="registrationDateFilterEnd">Data de registro para:</label>
                         <input type="date" id="registrationDateFilterEnd" name="registrationDateFilterEnd" class="form-control">
                     </div>
 
-                    <div class="form-group col-2">
+                    <div class="form-group col-12 col-md-2">
                         <label class="col-12 col-form-label p-0">Bloqueado</label>
                         <div class="col-12">
                             <select class="form-select" name="isBlockedFilter" value="@ViewData["IsBlockedFilter"]">
@@ -62,15 +62,15 @@
                         </div>
                     </div>
                     <div class="col-12 ">
-                        <div class="row justify-content-between mt-3 mx-0 pt-3 border-top" role="group">
-                            <button type="submit" class="col-auto d-flex align-items-center btn btn-primary">
+                        <div class="row justify-content-start mt-3 mx-0 pt-3 border-top" role="group">
+                            <button type="submit" class="col-auto d-flex align-items-center btn btn-dark mx-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle me-2" viewBox="0 0 16 16">
                                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                                     <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
                                 </svg>
                                 Aplicar filtros
                             </button>
-                            <button class="col-auto btn btn-warning text-white d-flex align-items-center" type="button" onclick="location.href='@Url.Action("Index","Clients")'">
+                            <button class="col-auto btn btn-outline-secondary border-0 d-flex align-items-center" type="button" onclick="location.href='@Url.Action("Index","Clients")'">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle me-2" viewBox="0 0 16 16">
                                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                                     <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
@@ -83,7 +83,7 @@
             </div>
         </div>
     </div>
-    <div class="container p-3 mt-5 bg-white rounded-3">
+    <div class="container p-3 mt-5 bg-white shadow-sm rounded-5 d-none d-lg-block">
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -131,22 +131,21 @@
                             @Html.DisplayFor(modelItem => item.IsBlocked)
                         </td>
                         <td class="d-flex justify-content-end gap-2">
-                            <a role="button" class="btn btn-white px-3 d-flex align-items-center" asp-action="Details" asp-route-id="@item.Id">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-square me-2" viewBox="0 0 16 16">
+                            <a role="button" class="btn btn-light px-3 d-flex align-items-center" asp-action="Details" asp-route-id="@item.Id">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16">
                                     <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
                                     <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
                                 </svg>
-                                Detalhes
                             </a>
-                            <a role="button" class="btn btn-primary px-3 d-flex align-items-center" asp-action="Edit" asp-route-id="@item.Id">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square me-2" viewBox="0 0 16 16">
+                            <a role="button" class="btn btn-outline-warning px-3 d-flex align-items-center" asp-action="Edit" asp-route-id="@item.Id">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square me-xl-2" viewBox="0 0 16 16">
                                     <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
                                     <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
                                 </svg>
                                 Editar
                             </a>
-                            <a role="button" class="btn btn-danger px-3 d-flex align-items-center" asp-action="Delete" asp-route-id="@item.Id">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3 me-2" viewBox="0 0 16 16">
+                            <a role="button" class="btn btn-outline-warning px-3 d-flex align-items-center" asp-action="Delete" asp-route-id="@item.Id">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3 me-xl-2" viewBox="0 0 16 16">
                                     <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
                                 </svg>
                                 Excluir
@@ -156,6 +155,79 @@
                 }
             </tbody>
         </table>
+    </div>
+    <div class="container-fluid d-flex flex-column gap-4 d-lg-none">
+        <div class="d-flex p-2 align-items-center justify-content-center bg-white shadow-sm border-0 rounded-3">
+            <input class="check-box select-all mx-2" type="checkbox" onclick="toggleAll(this)">
+            <p class="mb-1">Selecione todos os Compradores</p>
+        </div>
+        @foreach (var item in Model)
+        {
+            <div class="col shadow-sm rounded-5 border-0 overflow-hidden">
+                <div class="card border-0 position-relative">
+                    <div class="position-absolute top-0 end-0 p-3">
+                        <input class="check-box select-all" type="checkbox" onclick="toggleRow(this)">
+                    </div>
+                    <div class="card-header pt-3 pb-0 bg-white border-0 h4 w-75">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </div>
+                    <div class="card-body">
+                        <p>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                                <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
+                            </svg>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </p>
+                        <p>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone" viewBox="0 0 16 16">
+                                <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z" />
+                            </svg>
+                            @Html.DisplayFor(modelItem => item.Phone)
+                        </p>
+                        <div class="d-flex justify-content-between">
+                            <p>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16">
+                                    <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z" />
+                                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                                </svg>
+                                @if (!item.IsBlocked)
+                                {
+                                    <span class="badge p-0 text-success">Desbloqueado</span>
+                                }
+                                else
+                                {
+                                    <span class="badge p-0 text-danger">
+                                        Bloqueado
+                                    </span>
+                                }
+                            </p>
+                            <p class="text-muted fw-lighter" style="font-size:12px;">
+                                @Html.DisplayFor(modelItem => item.RegistrationDate)
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent border-0 d-flex justify-content-end gap-2 flex-wrap">
+                        <a role="button" class="btn btn-outline-warning px-3 d-flex align-items-center text-warning" asp-action="Details" asp-route-id="@item.Id">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16">
+                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                                <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                            </svg>
+                        </a>
+                        <a role="button" class="btn btn-outline-warning px-3 d-flex align-items-center text-warning" asp-action="Edit" asp-route-id="@item.Id">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                            </svg>
+                        </a>
+                        <a role="button" class="btn btn-outline-warning px-3 d-flex align-items-center text-warning" asp-action="Delete" asp-route-id="@item.Id">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                                <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
     <nav class="m-4" id="pagination-container">
         <ul class="pagination justify-content-center">
@@ -186,7 +258,7 @@
 </section>
 <script>
     function toggleAll(checkbox) {
-        $("tbody tr input[type='checkbox'].select-all").prop("checked", checkbox.checked);
+        $("input[type='checkbox'].select-all").prop("checked", checkbox.checked);
     }
 
     function toggleRow(checkbox) {

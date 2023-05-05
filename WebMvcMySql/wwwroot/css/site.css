@@ -2,6 +2,14 @@ html {
     font-size: 16px;
 }
 
+.rounded-5 {
+    border-radius: 20px;
+}
+
+.shadow-sm {
+    box-shadow: 0px 10px 60px rgba(226, 236, 249, 0.5);
+}
+
 .btn-primary a {
     text-decoration: none;
     font-size: 16px;
@@ -16,10 +24,41 @@ td {
     vertical-align: middle;
 }
 
+    td > a, .card a, dd > a {
+        text-decoration: none;
+        color: #212529;
+    }
+
+        td > a:hover, .card a:hover, dd > a:hover {
+            color: #212529;
+        }
+
 input.check-box {
     width: 18px;
     height: 18px;
     vertical-align: middle;
+    cursor: pointer;
+}
+
+    input.check-box:disabled {
+        cursor: default;
+    }
+
+    input.check-box:checked, input.check-box:not(:disabled):hover {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e");
+        background-color: #ffc107;
+        border-color: #ffc107;
+        appearance: none;
+        border-radius: 4px;
+    }
+
+        input.check-box:checked:disabled {
+            opacity: .4;
+        }
+
+.form-check-input:checked {
+    background-color: #ffc107;
+    border-color: #ffc107;
 }
 
 .page-link {
@@ -38,6 +77,16 @@ input.check-box {
 .field-validation-valid {
     height: 24px;
     display: block;
+}
+
+span.text-danger.field-validation-error {
+    font-size: 12px;
+    line-height: 14px;
+    background-color: #dc354526;
+    border-radius: 5px;
+    margin-top: 5px;
+    display: inline-block;
+    padding: 1px;
 }
 
 .password-icon {
@@ -65,11 +114,32 @@ span.password-icon.show {
     }
 }
 
+@media screen and (max-width:1400px) {
+
+    table {
+        font-size: .8rem;
+    }
+
+    td > a.btn {
+        font-size: 0px;
+    }
+}
+
 html {
     position: relative;
     min-height: 100%;
 }
 
 body {
-    margin-bottom: 60px;
+    background-color: #F2EAE1;
+    font-family: 'Nunito', sans-serif;
+}
+
+footer.footer[b-u5wix3ej8o] {
+    line-height: 30px;
+    background-color: #dbd3ca;
+}
+
+a.social-link {
+    color: #212529 !important;
 }

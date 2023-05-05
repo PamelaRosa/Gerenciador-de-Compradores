@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -118,20 +120,34 @@ namespace WebMvcMySql.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Email,Phone,RegistrationDate,CPF_CNPJ,IsFree,IsBlocked,IsStateDocIndividual,TypePerson,StateDoc,BirthDate,Gender,Password,ConfirmPassword")] Client client)
         {
-            if (ModelState.IsValid)
+            try
             {
-                // Checa se a senha coincide com a confirmação de senha
-                if (client.Password != client.ConfirmPassword)
+                if (ModelState.IsValid)
                 {
-                    ModelState.AddModelError(string.Empty, "As senhas não conferem.");
-                    return View(client);
-                }
 
-                _context.Add(client);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                    if (!string.IsNullOrEmpty(client.Password))
+                    {
+                        if (client.Password.Length < 8 || client.Password.Length > 15)
+                        {
+                            ModelState.AddModelError(nameof(client.Password), "A senha deve ter entre 8 e 15 caracteres.");
+                            return View(client);
+                        }
+
+                    }
+
+                    _context.Add(client);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                return View(client);
             }
-            return View(client);
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Ocorreu um erro ao salvar o cliente: " + ex.Message);
+                Console.WriteLine(ex.ToString());
+
+                return View(client);
+            }
         }
 
         // GET: Clients/Edit/5
@@ -164,16 +180,30 @@ namespace WebMvcMySql.Controllers
 
             if (ModelState.IsValid)
             {
-                // Check if password and confirm password match
-                if (client.Password != client.ConfirmPassword)
-                {
-                    ModelState.AddModelError(string.Empty, "As senhas não conferem.");
-                    return View(client);
-                }
-
                 try
                 {
-                    _context.Update(client);
+                    var existingClient = await _context.Clients.FindAsync(id);
+                    if (existingClient == null)
+                    {
+                        return NotFound();
+                    }
+
+                    existingClient.Name = client.Name;
+                    existingClient.Email = client.Email;
+                    existingClient.Phone = client.Phone;
+                    existingClient.RegistrationDate = client.RegistrationDate;
+                    existingClient.CPF_CNPJ = client.CPF_CNPJ;
+                    existingClient.IsFree = client.IsFree;
+                    existingClient.IsBlocked = client.IsBlocked;
+                    existingClient.IsStateDocIndividual = client.IsStateDocIndividual;
+                    existingClient.TypePerson = client.TypePerson;
+                    existingClient.StateDoc = client.StateDoc;
+                    existingClient.BirthDate = client.BirthDate;
+                    existingClient.Gender = client.Gender;
+                    existingClient.Password = client.Password;
+                    existingClient.ConfirmPassword = client.ConfirmPassword;
+
+                    _context.Update(existingClient);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -191,6 +221,7 @@ namespace WebMvcMySql.Controllers
             }
             return View(client);
         }
+
 
         // GET: Clients/Delete/5
         public async Task<IActionResult> Delete(int? id)

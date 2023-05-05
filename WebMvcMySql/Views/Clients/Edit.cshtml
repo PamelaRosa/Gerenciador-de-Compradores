@@ -6,14 +6,13 @@
 
 <h2 class="mb-5">Edite o Cliente</h2>
 
-<section class="row my-3">
-    <div class="col-12">
-        <form asp-action="Edit" class="row gy-2 gx-3 align-items-start">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <h5>Geral</h5>
-            <hr />
-            <div class="form-group col-12 col-md-4">
+<section class="pb-5">
+    <form asp-action="Edit" class="col-12 d-flex flex-column flex-wrap pb-5">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />
+        <div class="d-flex flex-wrap gap-2 bg-white p-3 col shadow-sm rounded-5 border-0 overflow-hidden">
+            <h5 class="col-12 pb-3 border-bottom">Geral</h5>
+            <div class="form-group col-12 col-md-3">
                 <label asp-for="TypePerson" class="control-label"></label>
                 <select asp-for="TypePerson" class="form-select" asp-items="Html.GetEnumSelectList<TypePerson>()">
                     <option value="">Selecione</option>
@@ -25,69 +24,85 @@
                 <input asp-for="Name" class="form-control" placeholder="Digite o Nome" title="Nome completo ou Razão Social do Cliente" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <div class="form-group col-4">
+            <div class="form-group col-12 col-md-6 col-lg-3">
                 <label asp-for="CPF_CNPJ" class="control-label"></label>
                 <input asp-for="CPF_CNPJ" class="form-control" placeholder="Digite o CPF ou CNPJ" />
                 <span asp-validation-for="CPF_CNPJ" class="text-danger"></span>
             </div>
-            <div class="form-group col-12 col-md-4">
+            <div class="form-group col-12 col-md-5 col-lg-3">
                 <label asp-for="Email" class="control-label"></label>
                 <input asp-for="Email" class="form-control" placeholder="Digite o E-mail" title="E-mail do Cliente" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-            <div class="form-group col-12 col-md-4">
+            <div class="form-group col-12 col-md-6 col-lg-3">
                 <label asp-for="Phone" class="control-label"></label>
                 <input asp-for="Phone" class="form-control" id="phone-input" placeholder="(00) 00000-0000" title="Telefone do Cliente" />
                 <span asp-validation-for="Phone" class="text-danger"></span>
             </div>
-            <div class="form-group col-12 col-md-4">
+            <div class="form-group col-12 col-md-6 col-lg-2">
                 <label asp-for="RegistrationDate" class="control-label"></label>
                 <input asp-for="RegistrationDate" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" disabled />
                 <span asp-validation-for="RegistrationDate" class="text-danger"></span>
             </div>
-            <h5 class="mt-5">Informações Pessoais</h5>
-            <hr />
-
-            <div class="form-group col-12 col-md-3" id="gender-group">
+        </div>
+        <div class="d-flex flex-wrap gap-2 bg-white p-3 mt-4 shadow-sm rounded-5 border-0 overflow-hidden">
+            <h5 class="col-12 pb-3 border-bottom">Informações Pessoais</h5>
+            <div class="form-group col-12 col-md-5 col-lg-2" id="gender-group">
                 <label asp-for="Gender" class="control-label"></label>
                 <select asp-for="Gender" class="form-select" asp-items="Html.GetEnumSelectList<Gender>()">
                     <option value="">Selecione</option>
                 </select>
                 <span asp-validation-for="Gender" class="text-danger"></span>
             </div>
-            <div class="form-group col-12 col-md-3" id="birthdate-group">
+            <div class="form-group col-12 col-md-6 col-lg-2" id="birthdate-group">
                 <label asp-for="BirthDate" class="control-label"></label>
                 <input asp-for="BirthDate" class="form-control" />
                 <span asp-validation-for="BirthDate" class="text-danger"></span>
             </div>
-            <div class="col-6">
-                <div class="row d-flex align-items-start gap-2">
-                    <div class="form-group form-check form-switch col-auto mb-2" id="StateDocIndividual-group">
-                        <label class="form-check-label d-flex flex-column-reverse align-items-start">
-                            <input class="form-check-input ms-1" role="switch" asp-for="IsStateDocIndividual" /> @Html.DisplayNameFor(model => model.IsStateDocIndividual)
-                        </label>
-                    </div>
-                    <div class="form-group col-5">
-                        <label asp-for="StateDoc" class="control-label"></label>
-                        <input asp-for="StateDoc" class="form-control" placeholder="Inscrição Estadual do Cliente" />
-                        <span asp-validation-for="StateDoc" class="text-danger"></span>
-                    </div>
-                    <div class="form-group form-check col-auto mb-2 align-self-end">
-                        <label class="form-check-label">
-                            <input class="form-check-input" asp-for="IsFree" /> @Html.DisplayNameFor(model => model.IsFree)
-                        </label>
-                    </div>
-                </div>
+            <div class="form-group form-check form-switch col-auto mb-2 px-4" id="StateDocIndividual-group">
+                <label class="form-check-label d-flex flex-column-reverse align-items-start">
+                    <input class="form-check-input ms-1" role="switch" asp-for="IsStateDocIndividual" /> @Html.DisplayNameFor(model => model.IsStateDocIndividual)
+                </label>
             </div>
+            <div class="form-group col-12 col-md-3">
+                <label asp-for="StateDoc" class="control-label"></label>
+                <input asp-for="StateDoc" class="form-control" placeholder="Inscrição Estadual do Cliente" />
+                <span asp-validation-for="StateDoc" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check col-auto mt-1 align-self-center">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsFree" /> @Html.DisplayNameFor(model => model.IsFree)
+                </label>
+            </div>
+        </div>
+        <div class="d-flex flex-wrap gap-2 bg-white p-3 mt-4 shadow-sm rounded-5 border-0 overflow-hidden">
+            <h5 class="col-12 pb-3 border-bottom">Situação do Cliente</h5>
             <div class="form-group form-check col-12 ms-2 mb-2 align-self-end">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="IsBlocked" /> @Html.DisplayNameFor(model => model.IsBlocked)
                 </label>
             </div>
-            <div class="row mt-4 mb-3">
+        </div>
+        <div class="d-flex flex-wrap gap-2 bg-white p-3 mt-4 shadow-sm rounded-5 border-0 overflow-hidden">
+            <h5 class="col-12 pb-3 border-bottom">Senha de Acesso</h5>
+            <div class="password-wrapper col-12 d-flex flex-wrap gap-2">
+                <div class="form-group col-12 col-md-5 col-lg-3 position-relative">
+                    <label asp-for="Password" class="control-label"></label>
+                    <input asp-for="Password" class="form-control" value="@Model.Password" placeholder="Digite a senha" title="Cadastre a senha de acesso do seu Cliente." />
+                    <span type="button" class="password-icon"></span>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group col-12 col-md-5 col-lg-3 position-relative">
+                    <label asp-for="ConfirmPassword" class="control-label"></label>
+                    <input asp-for="ConfirmPassword" class="form-control" value="@Model.ConfirmPassword" placeholder="Confirme a Senha" />
+                    <span type="button" class="password-icon"></span>
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-12 d-flex mt-4 mb-3">
                 <hr />
                 <div class="col-auto px-1">
-                    <a role="button" class="btn btn-secondary px-4 d-flex align-items-center" asp-action="Index">
+                    <a role="button" class="btn btn-outline-secondary border-0 px-4 d-flex align-items-center" asp-action="Index">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-circle me-2" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
                         </svg>
@@ -95,7 +110,7 @@
                     </a>
                 </div>
                 <div class="form-group col-auto px-1">
-                    <button type="submit" class="btn btn-primary px-4 d-flex align-items-center">
+                    <button type="submit" class="btn btn-warning px-4 d-flex align-items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save me-2" viewBox="0 0 16 16">
                             <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
                         </svg>
@@ -103,8 +118,8 @@
                     </button>
                 </div>
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
 </section>
 
 
@@ -116,45 +131,47 @@
     <script>
         $(document).ready(function () {
             // obtém as referências aos elementos HTML
-            var isStateDocIndividual = $("#IsStateDocIndividual");
-            var typePerson = $("#TypePerson");
-            var stateDoc = $("#StateDoc");
-
+            var isStateDocIndividual = $("#IsStateDocIndividual"),
+                typePerson = $("#TypePerson"),
+                stateDoc = $("#StateDoc");
             // Esconde o input de gênero, data de nascimento por padrão e switch Inscrição Estadual
-            if (!typePerson.val() === "Individual") {
-                $('#gender-group').hide();
-                $('#birthdate-group').hide();
-                $('#StateDocIndividual-group').hide();
+            if (!typePerson.val() === '0') {
+                $('#gender-group,#birthdate-group,#StateDocIndividual-group').hide();
+                $('#gender-group,#birthdate-group,#StateDocIndividual-group').addClass('hide');
             }
+
 
             //MASCARAS DO FORMULÁRIO
             //Phone
             $('#phone-input').mask('(00) 00000-0000');
             //CPF mascara - padrão
-            $('input#CPF_CNPJ').mask('000.000.000-00');
 
             //Escuta mudança no select Tipo de Pessoa
-            $('#TypePerson').change(function () {
+            $('#TypePerson').on('change load', function () {
                 let selectedValue = $(this).val();
-
-                if (selectedValue === 'Individual') {
+                if (selectedValue === '0') {
                     $('#gender-group').show();
                     $('#birthdate-group').show();
                     $('#StateDocIndividual-group').show();
+                    stateDoc.prop("disabled", true);
+                    $('#IsFree').prop("disabled", true);
                     //CPF mascara
                     $('input#CPF_CNPJ').mask('000.000.000-00');
                 } else {
                     $('#gender-group').hide();
                     $('#birthdate-group').hide();
                     $('#StateDocIndividual-group').hide();
+                    stateDoc.prop("disabled", false);
+                    $('#IsFree').prop("disabled", false);
                     //CNPJ mascara
                     $('input#CPF_CNPJ').mask('000.000.000/0000-00');
                 }
 
-            });
+            }).trigger('change');
+
 
             //Escuta mudança no checkbox Isento
-            $('#IsFree').change(function () {
+            $('#IsFree').on('change load', function () {
                 if ($('#IsFree').is(':checked')) {
                     // desativa o campo StateDoc
                     stateDoc.val("");
@@ -163,19 +180,38 @@
                     // caso contrário, habilita o campo StateDoc
                     stateDoc.prop("disabled", false);
                 }
-            });
-
+            }).trigger('change');
+            //
             //Escuta mudança no checkbox Isento
-            $('#IsStateDocIndividual').change(function () {
-                if (!$('#IsStateDocIndividual').is(':checked')) {
+            isStateDocIndividual.on('change load', function () {
+                if (!isStateDocIndividual.is(':checked') && $('#TypePerson').val() === '0') {
                     // desativa o campo StateDoc
                     stateDoc.val("");
                     stateDoc.prop("disabled", true);
+                    $('#IsFree').prop("disabled", true);
+                    $('#IsFree').prop("checked", false);
                 } else {
                     // caso contrário, habilita o campo StateDoc
                     stateDoc.prop("disabled", false);
+                    $('#IsFree').prop("disabled", false);
+                    $('#IsFree').prop("checked", false);
+
+                }
+            }).trigger('change');
+
+            //Mostra e esconde caracteres do input de senha ao clicar no botão
+            $(".password-wrapper").on("click", ".password-icon", function () {
+                let passwordInput = $(this).prev("input");
+                if (passwordInput.attr("type") === "password") {
+                    passwordInput.attr("type", "text");
+                    $(this).addClass("show");
+                } else {
+                    passwordInput.attr("type", "password");
+                    $(this).removeClass("show");
                 }
             });
+
+
         });
     </script>
 

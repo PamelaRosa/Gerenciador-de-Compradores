@@ -61,7 +61,7 @@ namespace WebMvcMySql.Models
         [Display(Name = "Bloqueado")]
         public bool IsBlocked { get; set; }
 
-
+        [MaxLength(20)]
         [Display(Name = "Inscrição Estadual - Pessoa Física")]
         public bool IsStateDocIndividual { get; set; }
 
@@ -77,20 +77,49 @@ namespace WebMvcMySql.Models
 
         [DataType(DataType.Date, ErrorMessage = "A data de cadastro informada não é válida.")]
         [Display(Name = "Data de Nascimento")]
+        [CustomValidation(typeof(Client), "ValidateBirthDate")]
         public DateTime? BirthDate { get; set; }
 
         //[Required(ErrorMessage = "O Tipo de Pessoa é obrigatório.")]
         [Display(Name = "Gênero")]
+        [CustomValidation(typeof(Client), "ValidateGender")]
         public Gender? Gender { get; set; }
 
+        //Validaçãões Gênero e Data de Nascimento - obrigatório somente para pessoa física
+        public static ValidationResult? ValidateGender(Gender? gender, ValidationContext context)
+        {
+            var instance = context.ObjectInstance as Client;
+            if (instance != null && instance.TypePerson == TypePerson.Individual)
+            {
+                if (gender == null || (gender != Models.Gender.Male && gender != Models.Gender.Female && gender != Models.Gender.Other))
+                {
+                    return new ValidationResult("O Gênero é obrigatório (Pessoa Física).");
+                }
+            }
+            return ValidationResult.Success;
+        }
+
+        public static ValidationResult? ValidateBirthDate(DateTime? birthDate, ValidationContext context)
+        {
+            var instance = context.ObjectInstance as Client;
+            if (instance != null && instance.TypePerson == TypePerson.Individual)
+            {
+                if (birthDate == null || birthDate > DateTime.Today)
+                {
+                    return new ValidationResult("A Data de nascimento é obrigatória (Pessoa Física).");
+                }
+            }
+            return ValidationResult.Success;
+        }
+
         [Required(ErrorMessage = "Senha é obrigatória.")]
-        [StringLength(15, MinimumLength = 8, ErrorMessage = "Senha deve ter entre 8 e 15 caracteres.")]
+        [StringLength(16, MinimumLength = 8, ErrorMessage = "Senha deve ter entre 8 e 15 caracteres.")]
         [DataType(DataType.Password)]
         [Display(Name = "Senha")]
         public string? Password { get; set; }
 
         [Required(ErrorMessage = "Confirmação de Senha é obrigatória.")]
-        [StringLength(15, MinimumLength = 8, ErrorMessage = "Confirmação de Senha deve ter entre 8 e 15 caracteres.")]
+        [StringLength(16, MinimumLength = 8, ErrorMessage = "Confirmação de Senha deve ter entre 8 e 15 caracteres.")]
         [DataType(DataType.Password)]
         [Compare(nameof(Password), ErrorMessage = "As senhas não conferem.")]
         [Display(Name = "Confirmação da Senha")]
