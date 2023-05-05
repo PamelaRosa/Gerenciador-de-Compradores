@@ -25,7 +25,7 @@ namespace WebMvcMySql.Controllers
         // GET: Clients e/ou Filtros
         public async Task<IActionResult> Index(string? nameFilter, string? emailFilter, string? phoneFilter, bool? isBlockedFilter, DateTime? registrationDateFilter, DateTime? registrationDateFilterEnd, int page = 1, int pageSize = 20)
         {
-            var clients = _context.Clients.AsQueryable();
+            var clients = _context.Clients.AsQueryable().Where(c => !c.Excluded);
 
             if (!string.IsNullOrEmpty(nameFilter))
             {
@@ -246,18 +246,28 @@ namespace WebMvcMySql.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Clients == null)
-            {
-                return Problem("Entity set 'ApplicationDbContext.Clients'  is null.");
-            }
             var client = await _context.Clients.FindAsync(id);
-            if (client != null)
+
+            if (client == null)
             {
-                _context.Clients.Remove(client);
+                return NotFound();
             }
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            // em vez de excluir o cliente, marque-o como excluído
+            client.Excluded = true;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Ocorreu um erro ao excluir o cliente: " + ex.Message);
+                Console.WriteLine(ex.ToString());
+
+                return View(client);
+            }
         }
 
         private bool ClientExists(int id)

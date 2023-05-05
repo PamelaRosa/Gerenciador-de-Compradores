@@ -61,7 +61,7 @@ namespace WebMvcMySql.Models
         [Display(Name = "Bloqueado")]
         public bool IsBlocked { get; set; }
 
-        [MaxLength(20)]
+
         [Display(Name = "Inscrição Estadual - Pessoa Física")]
         public bool IsStateDocIndividual { get; set; }
 
@@ -69,6 +69,7 @@ namespace WebMvcMySql.Models
         [Display(Name = "Tipo de Pessoa")]
         public TypePerson TypePerson { get; set; }
 
+        [MaxLength(20)]
         [UniqueAttribute(ErrorMessage = "Esta Inscrição Estadual já está sendo usado por outro cliente.")]
         [Display(Name = "Inscrição Estadual")]
         public string? StateDoc { get; set; }
@@ -85,7 +86,7 @@ namespace WebMvcMySql.Models
         [CustomValidation(typeof(Client), "ValidateGender")]
         public Gender? Gender { get; set; }
 
-        //Validaçãões Gênero e Data de Nascimento - obrigatório somente para pessoa física
+        //Validações Gênero e Data de Nascimento - obrigatório somente para pessoa física
         public static ValidationResult? ValidateGender(Gender? gender, ValidationContext context)
         {
             var instance = context.ObjectInstance as Client;
@@ -125,6 +126,8 @@ namespace WebMvcMySql.Models
         [Display(Name = "Confirmação da Senha")]
         public string? ConfirmPassword { get; set; }
 
+        [Display(Name = "Excluído")]
+        public bool Excluded { get; set; }
 
     }
 

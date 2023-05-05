@@ -19,10 +19,9 @@ namespace WebMvcMySql.Data
             // Verifique se a tabela Clientes está vazia
             if (context.Clients.Any())
             {
-                return; // O banco de dados já foi propagado
+                return; // O banco de dados já foi populado
             }
 
-            // Popule o banco de dados com 25 clientes aleatórios
             // Popule o banco de dados com 25 clientes aleatórios
             var random = new Random();
             var names = new List<string> {
@@ -69,7 +68,7 @@ namespace WebMvcMySql.Data
         private static string GenerateRandomPassword(Random random)
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-            return new string(Enumerable.Repeat(chars, 8).Select(s => s[random.Next(s.Length)]).ToArray());
+            return new string(Enumerable.Repeat(chars, 10).Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
     }
